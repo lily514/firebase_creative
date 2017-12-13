@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var expressSession = require('express-session');
+var Posts = mongoose.model('posts');
 
 var users = require('../controllers/users_controller');
 console.log("before / Route");
@@ -54,6 +55,44 @@ router.post('/user/delete', users.deleteUser);
 router.post('/login', users.login);
 router.get('/user/profile', users.getUserProfile);
 
+router.post('/update', function(req,res) {
+  console.log("in post update");
+  var stat = new Post(req.body);
+  stat.save(function(err, stat){
+    if(err) {return next(err));}
+    res.json(candidate);
+  });
+});
+
+router.get('/update', function(req,res,next){
+  console.log("in get update");
+  Post.find(function(err, posts){
+    if(err){return next(err);}
+    res.json(posts);
+  });
+});
+
+router.param('status', function (req, res, next, id){
+  console.log("in param update");
+  var query = Post.findById(id);
+  query.exec(function(err, post){
+    if(err) {return next(err);}
+    if(!post){return next(new Error("can't find post"))};
+    return next();
+  });
+});
+
+router.get('/update/:status', function(req, res){
+  console.log("in update status");
+  res.json(req.status);//???
+});
+
+router.put('/update/:status/upvote', function(req,res,next){
+  req.status.upvote(function(err,candidate){
+    if(err) {return next(err);}
+    res.json(status);
+  });
+});
 
 
 module.exports = router;

@@ -9,6 +9,7 @@ var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 require('./models/users_model.js');
 var conn = mongoose.connect('mongodb://localhost/myapp', { useMongoClient: true });
+var posts = mongoose.connect('mongodb://localhost/posts', {useMongoClient: true});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
