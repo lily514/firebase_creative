@@ -1,0 +1,44 @@
+<!doctype html>
+<html ng-app="myApp"> 
+    
+<head>
+  <title>Newsfeed</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+        
+<body>  
+    <div ng-controller="myController">
+        <h1>FaceSpace</h1>
+        <h3 id="welcomeText">Here is what your friends are up to:
+            <span class="teal-text"><%= username %></span>
+        </h3>
+    </div>
+
+    <div class = "form-container">
+    <h1 class= "form-header"> Status </h1>
+    <form method="POST" action="/status">
+	<label> Post a status:</label>
+	<input type="text" id="status" name="status"><br>
+	<input type="btn" type="submit" id="postStatus" value="postStatus">
+    </form>
+    </div>
+
+    <div id="statusList">
+	<h3 id="welcomeText"> Here is what your firends are up to:
+	    <span class="teal-text"></span>
+	</h3>
+	<div id ="feed" ng-repeat="status in statusList">
+	    {{status.text}} by {{status.user}} 
+	   <h3><span class="glyphicon glyphicon-thumbs-up" ng-click="addVote(vote)"</span> {{status.upvotes}} </h3>
+	</div>
+    </div>
+        
+
+
+    <script src="http://code.angularjs.org/1.2.9/angular.min.js"></script>
+    <script src="/javascripts/my_app.js"></script>
+</body>
+      
+</html>
