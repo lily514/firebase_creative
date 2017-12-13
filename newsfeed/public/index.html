@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+ 
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyD1XHcy0huNoHVZrfi2maG9ZHKfxUriZmk",
+	    authDomain: "activity14-1eed3.firebaseapp.com",
+	    databaseURL: "https://activity14-1eed3.firebaseio.com",
+	    projectId: "activity14-1eed3",
+	    storageBucket: "activity14-1eed3.appspot.com",
+	    messagingSenderId: "336348721241"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+
+	<!-- Jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+	
+	<!-- Angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+	<script src="/javascripts/app.js"></script>
+
+	<!--- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Oxygen:700|Roboto" rel="stylesheet">
+	<!--- Materialize -->
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<!-- icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/stylesheets/styles.css">
+
+	<title>Newsfeed</title>
+</head>
+<body ng-app="newsfeed" ng-controller="MainCtrl">
+<!--Navigation bar-->
+<!--end of Navigation bar-->
+
+<!--   <div id="loading">Loading...</div>
+	<div id="loaded" class="hidden"> 
+	</div>-->
+	<div class="header">
+		<h1> Newsfeed </h1>
+
+		<div id="user-signed-out">
+			<h2><button class="btn" onclick="signInWithGoogle()">Sign In With Google</button></h2>
+			<h6>Account required to add your own post. </h6>
+		</div>
+
+
+		<div id="user-signed-in" class="hidden">
+			
+
+			<div class="row">
+		    <form class="col s12" ng-submit="savePost()">
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <i class="material-icons prefix">mode_edit</i>
+		          <textarea ng-model="myPost" id="textarea1" class="materialize-textarea"></textarea>
+		          <label for="textarea1">Write Post</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		      	<h2><button class="btn" onclick="signOut()">Sign Out</button>
+		      	<button class="btn" type="submit">Post</button></h2>
+		      </div>
+		    </form>
+		  </div>
+			
+		</div>
+	</div>
+
+		<div class="feed">
+			<h4 ng-repeat="post in feed |orderBy:reverse :true">{{post.name}} : {{post.post}}</h4>
+		</div>
+
+
+		<script type="text/javascript">
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					document.getElementById("user-signed-out").classList.add("hidden");
+					document.getElementById("user-signed-in").classList.remove("hidden");
+				}
+				else {
+					document.getElementById("user-signed-in").classList.add("hidden");
+					document.getElementById("user-signed-out").classList.remove("hidden");
+				}
+		});
+		</script>
+</body>
+</html>
